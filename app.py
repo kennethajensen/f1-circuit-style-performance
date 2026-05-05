@@ -35,7 +35,7 @@ chart = alt.Chart(chart_data).mark_bar().encode(
     y=alt.Y('Cluster', sort='-x', title="Circuit Cluster"),
     # Conditional coloring logic:
     color=alt.condition(
-        alt.datum.Metric < 0,
+        alt.datum.relative_lap_duration < 0,
         alt.value('#d33232'),  # Red for negative
         alt.value('#3266d3')   # Blue for positive
     ),
