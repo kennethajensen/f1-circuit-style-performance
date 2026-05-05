@@ -19,9 +19,23 @@ def load_data():
 try:
     df = load_data()
     st.success("Data loaded successfully from GitHub!")
-    st.dataframe(df)
+    # st.dataframe(df)
 except FileNotFoundError:
     st.error("CSV file not found. Check your GitHub repository structure.")
+
+st.title("Average Metrics by Group")
+
+# 1. Group by your category and calculate the mean
+# Replace 'Category_Column' and 'Value_Column' with your actual CSV headers
+chart_data = df.groupby('Cluster')['relative_lap_duration'].mean()
+
+# 2. Create the horizontal bar chart
+# Streamlit's horizontal parameter makes this simple
+st.bar_chart(chart_data, horizontal=True)
+
+# Optional: Display the raw averages in a table for clarity
+if st.checkbox("Show raw average numbers"):
+    st.table(chart_data)
 
 # Add an interactive widget
 st.subheader("Try this slider:")
