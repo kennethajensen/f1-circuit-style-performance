@@ -32,7 +32,7 @@ chart_data = df.groupby('Cluster')['relative_lap_duration'].mean().reset_index()
 # 2. Define the Altair Chart
 chart = alt.Chart(chart_data).mark_bar().encode(
     x='relative_lap_duration',
-    y=alt.Y('Cluster', sort='-x'),
+    y=alt.Y('Cluster', sort='-x', title=None),
     # Conditional coloring logic:
     color=alt.condition(
         alt.datum.relative_lap_duration < 0,
