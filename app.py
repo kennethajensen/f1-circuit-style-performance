@@ -24,10 +24,21 @@ try:
 except FileNotFoundError:
     st.error("CSV file not found. Check your GitHub repository structure.")
 
-st.title("Average Metrics by Group")
+
+# 1. Get a unique list of teams from your CSV
+# Replace 'Team_Column' with your actual column name
+team_list = sorted(df['team_name'].unique())
+
+# 2. Create the dropdown selector
+selected_team = st.selectbox("Select a Team to analyze:", team_list)
+
+# 3. Filter your data based on the selection
+filtered_df = df[df['team_name'] == selected_team]
+
+st.subheader(f"Performance for {selected_team}")
 
 # 1. Group by your category and calculate the mean
-chart_data = df.groupby('Cluster')['relative_lap_duration'].mean().reset_index()
+chart_data = filtered_df.groupby('Cluster')['relative_lap_duration'].mean().reset_index()
 
 # 2. Define the Altair Chart
 chart = alt.Chart(chart_data).mark_bar().encode(
