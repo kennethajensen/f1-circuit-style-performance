@@ -34,7 +34,7 @@ chart_data = df.groupby('Cluster')['relative_lap_duration'].mean()
 # Display the chart with container width optimization
 st.bar_chart(
     chart_data, 
-    horizontal=True, 
+    #horizontal=True, 
     use_container_width=True
 )
 
