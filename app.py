@@ -31,7 +31,12 @@ chart_data = df.groupby('Cluster')['relative_lap_duration'].mean()
 
 # 2. Create the horizontal bar chart
 # Streamlit's horizontal parameter makes this simple
-st.bar_chart(chart_data, horizontal=True)
+# Display the chart with container width optimization
+st.bar_chart(
+    chart_data, 
+    horizontal=True, 
+    use_container_width=True
+)
 
 # Optional: Display the raw averages in a table for clarity
 if st.checkbox("Show raw average numbers"):
