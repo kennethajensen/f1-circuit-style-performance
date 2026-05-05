@@ -46,9 +46,9 @@ chart = alt.Chart(chart_data).mark_bar().encode(
     y=alt.Y('Cluster', sort='-x', title=None),
     # Conditional coloring logic:
     color=alt.condition(
-        alt.datum.relative_lap_duration < 0,
-        alt.value('#d33232'),  # Red for negative
-        alt.value('#3266d3')   # Blue for positive
+        alt.datum.relative_lap_duration > 0,
+        alt.value('#d33232'),  # Red for positive/slower
+        alt.value('#3266d3')   # Blue for negative/faster
     ),
     tooltip=['Cluster', 'relative_lap_duration']
 ).configure_axis(
