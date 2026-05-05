@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import altair as alt
 
 # Set the page title
 st.title("🎈 My First Streamlit App")
@@ -26,17 +27,27 @@ except FileNotFoundError:
 st.title("Average Metrics by Group")
 
 # 1. Group by your category and calculate the mean
-# Replace 'Category_Column' and 'Value_Column' with your actual CSV headers
-chart_data = df.groupby('Cluster')['relative_lap_duration'].mean()
+chart_data = df.groupby('Cluster')['relative_lap_duration'].mean().reset_index()
 
-# 2. Create the horizontal bar chart
-# Streamlit's horizontal parameter makes this simple
-# Display the chart with container width optimization
-st.bar_chart(
-    chart_data, 
-    #horizontal=True, 
-    use_container_width=True
+# 2. Define the Altair Chart
+chart = alt.Chart(chart_data).mark_bar().encode(
+    x='relative_lap_duration:Q',
+    y=alt.Y('Cluster:N', sort='-x', title="Cluster"),
+    # Conditional coloring logic:
+    color=alt.condition(
+        alt.datum.Metric < 0,
+        alt.value('#d33232'),  # Red for negative
+        alt.value('#3266d3')   # Blue for positive
+    ),
+    tooltip=['Circuit Cluster', 'Relative Pace']
+).configure_axis(
+    labelLimit=300  # Ensure full category names are shown
+).properties(
+    height=400
 )
+
+# 3. Display the chart
+st.altair_chart(chart, use_container_width=True)
 
 # Optional: Display the raw averages in a table for clarity
 if st.checkbox("Show raw average numbers"):
