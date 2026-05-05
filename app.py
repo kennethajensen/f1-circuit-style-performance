@@ -15,7 +15,7 @@ st.subheader("Here's a sample dataframe:")
 def load_data():
     # Because the CSV is in the same GitHub folder, 
     # we just use the filename.
-    return pd.read_csv("f1_laptime_by_cluster.csv")
+    return pd.read_csv("f1_laptime_by_cluster___.csv")
 
 try:
     df = load_data()
