@@ -32,14 +32,14 @@ chart_data = df.groupby('Cluster')['relative_lap_duration'].mean().reset_index()
 # 2. Define the Altair Chart
 chart = alt.Chart(chart_data).mark_bar().encode(
     x='relative_lap_duration',
-    y=alt.Y('Cluster', sort='-x', title="Cluster"),
+    y=alt.Y('Cluster', sort='-x', title="Circuit Cluster"),
     # Conditional coloring logic:
     color=alt.condition(
         alt.datum.Metric < 0,
         alt.value('#d33232'),  # Red for negative
         alt.value('#3266d3')   # Blue for positive
     ),
-    tooltip=['Circuit Cluster', 'Relative Pace']
+    tooltip=['Cluster', 'relative_lap_duration']
 ).configure_axis(
     labelLimit=300  # Ensure full category names are shown
 ).properties(
