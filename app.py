@@ -16,6 +16,7 @@ def load_data():
     # Because the CSV is in the same GitHub folder, 
     # we just use the filename.
     return pd.read_csv("f1_laptime_by_cluster.csv")
+    st.success("CSV file loaded")
 
 try:
     df = load_data()
