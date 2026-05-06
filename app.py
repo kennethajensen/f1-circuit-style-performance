@@ -63,3 +63,27 @@ st.altair_chart(chart, use_container_width=True)
 # Optional: Display the raw averages in a table for clarity
 if st.checkbox("Show raw average numbers"):
     st.table(chart_data)
+
+# Heatmap: Team Name vs Cluster Name
+st.subheader("Heatmap: Mean Lap Time Difference by Team and Cluster")
+
+# Group by Team Name and Cluster Name, calculate mean lap time difference
+heatmap_data = df.groupby(['Team Name', 'Cluster Name'])['Lap Time Difference (ms)'].mean().reset_index()
+
+# Create the heatmap
+heatmap = alt.Chart(heatmap_data).mark_rect().encode(
+    x='Cluster Name',
+    y='Team Name',
+    color=alt.Color('Lap Time Difference (ms):q', scale=alt.Scale(scheme='redblue', reverse=True)),
+    tooltip=['Team Name', 'Cluster Name', 'Lap Time Difference (ms)']
+).properties(
+    width=600,
+    height=400
+)
+
+st.altair_chart(heatmap, use_container_width=True)
+
+# Optional: Display the heatmap data in a pivot table for clarity
+if st.checkbox("Show heatmap data as pivot table"):
+    pivot_data = heatmap_data.pivot(index='Team Name', columns='Cluster Name', values='Lap Time Difference (ms)')
+    st.dataframe(pivot_data)
