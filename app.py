@@ -81,7 +81,7 @@ heatmap = alt.Chart(heatmap_data).mark_rect().encode(
     tooltip=['Team Name', 'Cluster Name', alt.Tooltip('Lap Time Difference (ms)', format='.2f')]
 ).properties(
 #    width=800,
-    height=800
+    height=600
 )
 
 st.altair_chart(heatmap, use_container_width=True)
