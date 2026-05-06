@@ -6,11 +6,9 @@ import numpy as np
 import altair as alt
 
 # Set the page title
-st.title("🎈 My First Streamlit App")
+st.title(":racing_car: Analyzing Formula 1 Data")
 # Add a welcome message
-st.write("Welcome to my app! This is running on Streamlit Cloud.")
-# Create a simple dataframe
-st.subheader("Here's a sample dataframe:")
+st.write("Showing the relative performance difference on each group of circuit styles.")
 
 # Use @st.cache_data to keep the app fast on the cloud
 @st.cache_data
