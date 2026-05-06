@@ -19,7 +19,7 @@ def load_data():
 
 try:
     df = load_data()
-    st.success("Data loaded successfully from GitHub!")
+    # st.success("Data loaded successfully from GitHub!")
     # st.dataframe(df)
 except FileNotFoundError:
     st.error("CSV file not found. Check your GitHub repository structure.")
