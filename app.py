@@ -63,12 +63,3 @@ st.altair_chart(chart, use_container_width=True)
 # Optional: Display the raw averages in a table for clarity
 if st.checkbox("Show raw average numbers"):
     st.table(chart_data)
-
-# Add an interactive widget
-st.subheader("Try this slider:")
-slider_value = st.slider("Select a number", 0, 100, 50)
-st.write(f"You selected: {slider_value}")
-# Add a button
-if st.button("Click me!"):
-    st.balloons()
-    st.success("🎉 Congratulations! Your app is working!")
