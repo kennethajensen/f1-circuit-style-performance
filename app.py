@@ -72,9 +72,9 @@ heatmap_data = df.groupby(['Team Name', 'Cluster Name'])['Lap Time Difference (m
 
 # Create the heatmap with increased width for labels and every label shown
 heatmap = alt.Chart(heatmap_data).mark_rect().encode(
-    x=alt.X('Cluster Name:N', title='Cluster Name', axis=alt.Axis(labelAngle=-45, labelPadding=10, labelLimit=500, tickMinStep=1)),
-    y=alt.Y('Team Name:N', title='Team Name'),
-    color=alt.Color('Lap Time Difference (ms):Q', scale=alt.Scale(scheme='redblue')),
+    x=alt.X('Cluster Name:N', title=None, axis=alt.Axis(labelAngle=-45, labelPadding=10, labelLimit=500, tickMinStep=1)),
+    y=alt.Y('Team Name:N', title=None),
+    color=alt.Color('Lap Time Difference (ms):Q', scale=alt.Scale(scheme='redblue', legend=None)),
     tooltip=['Team Name', 'Cluster Name', alt.Tooltip('Lap Time Difference (ms)', format='.2f')]
 ).properties(
     width=1600,
