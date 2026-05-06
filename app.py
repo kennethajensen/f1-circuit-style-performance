@@ -62,4 +62,4 @@ st.altair_chart(chart, use_container_width=True)
 
 # Optional: Display the raw averages in a table for clarity
 if st.checkbox("Show raw average numbers"):
-    st.table(filtered_df)
+    st.table(chart_data)
