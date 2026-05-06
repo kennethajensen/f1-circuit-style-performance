@@ -75,13 +75,13 @@ num_clusters = heatmap_data['Cluster Name'].nunique()
 
 # Create the heatmap with tickCount set to exact number of clusters
 heatmap = alt.Chart(heatmap_data).mark_rect().encode(
-    x=alt.X('Cluster Name:N', title=None, axis=alt.Axis(labelAngle=-45, labelPadding=10, labelLimit=500, tickCount=num_clusters, tickMinStep=1)),
+    x=alt.X('Cluster Name:N', title=None, axis=alt.Axis(labelPadding=10, labelLimit=500, tickCount=num_clusters, tickMinStep=1)),
     y=alt.Y('Team Name:N', title=None),
     color=alt.Color('Lap Time Difference (ms):Q', scale=alt.Scale(scheme='redblue'), legend=None),
     tooltip=['Team Name', 'Cluster Name', alt.Tooltip('Lap Time Difference (ms)', format='.2f')]
 ).properties(
-    width=1600,
-    height=600
+    width=800,
+    height=800
 )
 
 st.altair_chart(heatmap, use_container_width=True)
