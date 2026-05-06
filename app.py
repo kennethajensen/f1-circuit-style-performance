@@ -38,19 +38,19 @@ filtered_df = df[df['Cluster Name'] == selected_circuit_cluster]
 st.subheader(f"Performance for {selected_circuit_cluster}")
 
 # 1. Group by your category and calculate the mean
-chart_data = filtered_df.groupby('Team Name')['Lap Time Difference (ms)'].mean().reset_index()
+chart_data = filtered_df.groupby('Team Name')['Adjusted Lap Time Ratio'].mean().reset_index()
 
 # 2. Define the Altair Chart
 chart = alt.Chart(chart_data).mark_bar().encode(
-    x='Lap Time Difference (ms)',
+    x='Adjusted Lap Time Ratio',
     y=alt.Y('Team Name', sort='x', title=None),
     # Conditional coloring logic:
     color=alt.condition(
-        alt.datum['Lap Time Difference (ms)'] > 0,
+        alt.datum['Adjusted Lap Time Ratio'] > 0,
         alt.value('#d33232'),  # Red for positive/slower
         alt.value('#3266d3')   # Blue for negative/faster
     ),
-    tooltip=['Team Name', 'Lap Time Difference (ms)']
+    tooltip=['Team Name', 'Adjusted Lap Time Ratio']
 ).configure_axis(
     labelLimit=300  # Ensure full category names are shown
 ).properties(
