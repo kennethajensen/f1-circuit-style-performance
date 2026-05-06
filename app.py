@@ -70,9 +70,12 @@ st.subheader("Heatmap: Mean Lap Time Difference by Team and Cluster")
 # Group by Team Name and Cluster Name, calculate mean lap time difference
 heatmap_data = df.groupby(['Team Name', 'Cluster Name'])['Lap Time Difference (ms)'].mean().reset_index()
 
-# Create the heatmap with tickBand to force all labels to show
+# Get the number of unique clusters
+num_clusters = heatmap_data['Cluster Name'].nunique()
+
+# Create the heatmap with tickCount set to exact number of clusters
 heatmap = alt.Chart(heatmap_data).mark_rect().encode(
-    x=alt.X('Cluster Name:N', title=None, axis=alt.Axis(labelAngle=-45, labelPadding=10, labelLimit=500, tickBand='extent')),
+    x=alt.X('Cluster Name:N', title=None, axis=alt.Axis(labelAngle=-45, labelPadding=10, labelLimit=500, tickCount=num_clusters, tickMinStep=1)),
     y=alt.Y('Team Name:N', title=None),
     color=alt.Color('Lap Time Difference (ms):Q', scale=alt.Scale(scheme='redblue'), legend=None),
     tooltip=['Team Name', 'Cluster Name', alt.Tooltip('Lap Time Difference (ms)', format='.2f')]
