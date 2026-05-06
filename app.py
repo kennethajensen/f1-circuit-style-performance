@@ -26,7 +26,6 @@ except FileNotFoundError:
 
 
 # 1. Get a unique list of teams from your CSV
-# Replace 'Team_Column' with your actual column name
 cluster_list = sorted(df['Cluster Name'].unique())
 
 # 2. Create the dropdown selector
