@@ -77,7 +77,7 @@ num_clusters = heatmap_data['Cluster Name'].nunique()
 heatmap = alt.Chart(heatmap_data).mark_rect().encode(
     x=alt.X('Cluster Name:N', title=None, axis=alt.Axis(labelPadding=10, labelLimit=500, tickCount=num_clusters, tickMinStep=1)),
     y=alt.Y('Team Name:N', title=None),
-    color=alt.Color('Lap Time Difference (ms):Q', scale=alt.Scale(domain=[-100, 0, 100], range=['#0066cc', '#ffffff', '#cc0000']), legend=None),
+    color=alt.Color('Lap Time Difference (ms):Q', scale=alt.Scale(domain=[-500, 0, 1100], range=['#0066cc', '#ffffff', '#cc0000']), legend=None),
     tooltip=['Team Name', 'Cluster Name', alt.Tooltip('Lap Time Difference (ms)', format='.2f')]
 ).properties(
 #    width=800,
