@@ -6,7 +6,7 @@ import numpy as np
 import altair as alt
 
 # Set the page title
-st.title(":racing_car: Analyzing Formula 1 Data")
+st.title("🏎️ Analyzing Formula 1 Data")
 # Add a welcome message
 st.write("Showing the relative performance difference on each group of circuit styles.")
 
