@@ -23,7 +23,7 @@ try:
     # st.dataframe(df)
 except FileNotFoundError:
     st.error("CSV file not found. Check your GitHub repository structure.")
-
+    st.stop()  # Stop execution here
 
 # 1. Get a unique list of teams from your CSV
 cluster_list = sorted(df['Cluster Name'].unique())
