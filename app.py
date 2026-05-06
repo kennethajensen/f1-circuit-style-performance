@@ -80,7 +80,7 @@ heatmap = alt.Chart(heatmap_data).mark_rect().encode(
     color=alt.Color('Lap Time Difference (ms):Q', scale=alt.Scale(scheme='redblue'), legend=None),
     tooltip=['Team Name', 'Cluster Name', alt.Tooltip('Lap Time Difference (ms)', format='.2f')]
 ).properties(
-    width=800,
+#    width=800,
     height=800
 )
 
