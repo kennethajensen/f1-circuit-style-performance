@@ -72,10 +72,10 @@ heatmap_data = df.groupby(['Team Name', 'Cluster Name'])['Lap Time Difference (m
 
 # Create the heatmap
 heatmap = alt.Chart(heatmap_data).mark_rect().encode(
-    x='Cluster Name',
-    y='Team Name',
+    x=alt.X('Cluster Name:N', title='Cluster Name'),
+    y=alt.Y('Team Name:N', title='Team Name'),
     color=alt.Color('Lap Time Difference (ms):q', scale=alt.Scale(scheme='redblue', reverse=True)),
-    tooltip=['Team Name', 'Cluster Name', 'Lap Time Difference (ms)']
+    tooltip=['Team Name', 'Cluster Name', alt.Tooltip('Lap Time Difference (ms)', format='.2f')]
 ).properties(
     width=600,
     height=400
@@ -85,5 +85,8 @@ st.altair_chart(heatmap, use_container_width=True)
 
 # Optional: Display the heatmap data in a pivot table for clarity
 if st.checkbox("Show heatmap data as pivot table"):
-    pivot_data = heatmap_data.pivot(index='Team Name', columns='Cluster Name', values='Lap Time Difference (ms)')
-    st.dataframe(pivot_data)
+    try:
+        pivot_data = heatmap_data.pivot_table(index='Team Name', columns='Cluster Name', values='Lap Time Difference (ms)', aggfunc='mean')
+        st.dataframe(pivot_data)
+    except Exception as e:
+        st.error(f"Error creating pivot table: {e}")
