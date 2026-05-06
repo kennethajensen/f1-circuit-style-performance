@@ -29,30 +29,30 @@ except FileNotFoundError:
 
 # 1. Get a unique list of teams from your CSV
 # Replace 'Team_Column' with your actual column name
-team_list = sorted(df['team_name'].unique())
+team_list = sorted(df['Cluster'].unique())
 
 # 2. Create the dropdown selector
-selected_team = st.selectbox("Select a Team to analyze:", team_list)
+selected_team = st.selectbox("Select a circuit style to analyze:", team_list)
 
 # 3. Filter your data based on the selection
-filtered_df = df[df['team_name'] == selected_team]
+filtered_df = df[df['Cluster'] == selected_team]
 
 st.subheader(f"Performance for {selected_team}")
 
 # 1. Group by your category and calculate the mean
-chart_data = filtered_df.groupby('Cluster')['relative_lap_duration'].mean().reset_index()
+chart_data = filtered_df.groupby('Team')['relative_lap_duration'].mean().reset_index()
 
 # 2. Define the Altair Chart
 chart = alt.Chart(chart_data).mark_bar().encode(
     x='relative_lap_duration',
-    y=alt.Y('Cluster', sort='x', title=None),
+    y=alt.Y('Team', sort='x', title=None),
     # Conditional coloring logic:
     color=alt.condition(
         alt.datum.relative_lap_duration > 0,
         alt.value('#d33232'),  # Red for positive/slower
         alt.value('#3266d3')   # Blue for negative/faster
     ),
-    tooltip=['Cluster', 'relative_lap_duration']
+    tooltip=['Team', 'relative_lap_duration']
 ).configure_axis(
     labelLimit=300  # Ensure full category names are shown
 ).properties(
