@@ -74,12 +74,12 @@ heatmap_data = df.groupby(['Team Name', 'Cluster Name'])['Lap Time Difference (m
 heatmap = alt.Chart(heatmap_data).mark_rect().encode(
     x=alt.X('Cluster Name:N', title='Cluster Name'),
     y=alt.Y('Team Name:N', title='Team Name'),
-    color=alt.Color('Lap Time Difference (ms):q', scale=alt.Scale(scheme='redblue', reverse=True)),
+    color='Lap Time Difference (ms):Q',
     tooltip=['Team Name', 'Cluster Name', alt.Tooltip('Lap Time Difference (ms)', format='.2f')]
 ).properties(
     width=600,
     height=400
-)
+).scale(scheme='redblue')
 
 st.altair_chart(heatmap, use_container_width=True)
 
