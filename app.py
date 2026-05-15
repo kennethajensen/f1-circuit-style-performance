@@ -115,19 +115,20 @@ heatmap = alt.Chart(heatmap_data).mark_rect().encode(
 st.altair_chart(heatmap, use_container_width=True)
 
 # Optional: Display the heatmap data in a pivot table for clarity
-try:
-    # 1. Create the pivot table
-    pivot_data = heatmap_data.pivot_table(
-        index='Team Name', 
-        columns='Cluster Name', 
-        values='Adjusted Lap Time Ratio', 
-        aggfunc='mean'
-    )
-    # 2. Format as percentage
-    formatted_pivot = pivot_data.style.format("{:.2%}")
-    # 3. Display
-    st.dataframe(formatted_pivot)
-
-except Exception as e:
-    st.error(f"Error creating pivot table: {e}")
+if st.checkbox("Show heatmap numbers in a pivot table"):
+    try:
+        # 1. Create the pivot table
+        pivot_data = heatmap_data.pivot_table(
+            index='Team Name', 
+            columns='Cluster Name', 
+            values='Adjusted Lap Time Ratio', 
+            aggfunc='mean'
+        )
+        # 2. Format as percentage
+        formatted_pivot = pivot_data.style.format("{:.2%}")
+        # 3. Display
+        st.dataframe(formatted_pivot)
+    
+    except Exception as e:
+        st.error(f"Error creating pivot table: {e}")
 # -------------------------------------------------------------------
