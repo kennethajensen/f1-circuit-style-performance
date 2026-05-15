@@ -9,7 +9,8 @@ import altair as alt
 # Set the page title
 st.title("🏎️ Analyzing Formula 1 Data")
 # Add a welcome message
-st.write("Showing the relative performance difference on each group of circuit styles.")
+st.write("Showing the relative performance difference during the the 2023-2025 seasons on each group of circuit styles.")
+st.write("The performance is based on fastest qualifying lap from each driver and includes both qualifying for both sprint and feature races.")  
 
 # Use @st.cache_data to keep the app fast on the cloud
 @st.cache_data
@@ -27,14 +28,16 @@ except FileNotFoundError:
     st.error("CSV file not found. Check your GitHub repository structure.")
     st.stop()  # Stop execution here
 
-# 1. Get a unique list of teams from your CSV
+# Get a unique list of circuit clusters from your CSV
 cluster_list = sorted(df['Cluster Name'].unique())
 
-# 2. Create the dropdown selector
+# Create the dropdown selector using the circuit clusters
 selected_circuit_cluster = st.selectbox("Select a circuit style to analyze:", cluster_list)
 
 # Use the name of the selected circuit cluster to create the name of
 # image file that shows the circuits included in the cluster
+# Each file is stored in the images/ subfolder and has the exact same name
+# as used in the [Cluster Name] column in the CSV file
 circuit_file_name = f"images/{selected_circuit_cluster}.PNG"
 if os.path.exists(circuit_file_name):
     st.image(circuit_file_name, use_container_width=True)
