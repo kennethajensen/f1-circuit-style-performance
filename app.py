@@ -53,7 +53,7 @@ chart_data = filtered_df.groupby('Team Name')['Adjusted Lap Time Ratio'].mean().
 
 # 2. Define the Altair Chart
 chart = alt.Chart(chart_data).mark_bar().encode(
-    x='Adjusted Lap Time Ratio',
+    x=alt.X('Adjusted Lap Time Ratio:Q', axis=alt.Axis(format='.1%'), title='Performance Difference (%)'),
     y=alt.Y('Team Name', sort='x', title=None),
     # Conditional coloring logic:
     color=alt.condition(
