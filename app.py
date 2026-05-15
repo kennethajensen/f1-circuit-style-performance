@@ -93,7 +93,7 @@ num_clusters = heatmap_data['Cluster Name'].nunique()
 heatmap = alt.Chart(heatmap_data).mark_rect().encode(
     x=alt.X('Cluster Name:N', title=None, axis=alt.Axis(labelPadding=10, labelLimit=500, tickCount=num_clusters, tickMinStep=1)),
     y=alt.Y('Team Name:N', title=None),
-    color=alt.Color('Adjusted Lap Time Ratio:Q', scale=alt.Scale(domain=[-438, 0, 1043], range=['#0066cc', '#ffffff', '#cc0000']), legend=None),
+    color=alt.Color('Adjusted Lap Time Ratio:Q', scale=alt.Scale(domain=[-0.007, 0, 0.014], range=['#0066cc', '#ffffff', '#cc0000']), legend=None),
     tooltip=['Team Name', 'Cluster Name', alt.Tooltip('Adjusted Lap Time Ratio', format='.2f')]
 ).properties(
 #    width=800,
