@@ -43,15 +43,17 @@ if os.path.exists(circuit_file_name):
 else:
     st.info(f"No track layout image available for {selected_circuit_cluster}")
 
-# 3. Filter your data based on the selection
+# Show the horizontal bar chart based on the selected circuit cluster
+# -------------------------------------------------------------------
+# Filter your data based on the selection
 filtered_df = df[df['Cluster Name'] == selected_circuit_cluster]
 
 st.subheader(f"Performance on {selected_circuit_cluster}")
 
-# 1. Group by your category and calculate the mean
+# Group by your category and calculate the mean
 chart_data = filtered_df.groupby('Team Name')['Adjusted Lap Time Ratio'].mean().reset_index()
 
-# 2. Define the Altair Chart
+# Define the Altair Chart
 chart = alt.Chart(chart_data).mark_bar().encode(
     x=alt.X('Adjusted Lap Time Ratio:Q', axis=alt.Axis(format='.1%'), title='Performance Difference (%)'),
     y=alt.Y('Team Name', sort='x', title=None),
@@ -68,18 +70,21 @@ chart = alt.Chart(chart_data).mark_bar().encode(
     height=400
 )
 
-# 3. Display the chart
+# Display the chart
 st.altair_chart(chart, use_container_width=True)
 
 # Optional: Display the raw averages in a table for clarity
 if st.checkbox("Show raw average numbers"):
     st.table(chart_data)
+# -------------------------------------------------------------------
+
 
 # Heatmap: Team Name vs Cluster Name
+# -------------------------------------------------------------------
 st.subheader("Heatmap: Mean Lap Time Difference by Team and Cluster")
 
 # Group by Team Name and Cluster Name, calculate mean lap time difference
-heatmap_data = df.groupby(['Team Name', 'Cluster Name'])['Lap Time Difference (ms)'].mean().reset_index()
+heatmap_data = df.groupby(['Team Name', 'Cluster Name'])['Adjusted Lap Time Ratio'].mean().reset_index()
 
 # Get the number of unique clusters
 num_clusters = heatmap_data['Cluster Name'].nunique()
@@ -88,8 +93,8 @@ num_clusters = heatmap_data['Cluster Name'].nunique()
 heatmap = alt.Chart(heatmap_data).mark_rect().encode(
     x=alt.X('Cluster Name:N', title=None, axis=alt.Axis(labelPadding=10, labelLimit=500, tickCount=num_clusters, tickMinStep=1)),
     y=alt.Y('Team Name:N', title=None),
-    color=alt.Color('Lap Time Difference (ms):Q', scale=alt.Scale(domain=[-438, 0, 1043], range=['#0066cc', '#ffffff', '#cc0000']), legend=None),
-    tooltip=['Team Name', 'Cluster Name', alt.Tooltip('Lap Time Difference (ms)', format='.2f')]
+    color=alt.Color('Adjusted Lap Time Ratio:Q', scale=alt.Scale(domain=[-438, 0, 1043], range=['#0066cc', '#ffffff', '#cc0000']), legend=None),
+    tooltip=['Team Name', 'Cluster Name', alt.Tooltip('Adjusted Lap Time Ratio', format='.2f')]
 ).properties(
 #    width=800,
     height=600
@@ -100,7 +105,8 @@ st.altair_chart(heatmap, use_container_width=True)
 # Optional: Display the heatmap data in a pivot table for clarity
 if st.checkbox("Show heatmap data as pivot table"):
     try:
-        pivot_data = heatmap_data.pivot_table(index='Team Name', columns='Cluster Name', values='Lap Time Difference (ms)', aggfunc='mean')
+        pivot_data = heatmap_data.pivot_table(index='Team Name', columns='Cluster Name', values='Adjusted Lap Time Ratio', aggfunc='mean')
         st.dataframe(pivot_data)
     except Exception as e:
         st.error(f"Error creating pivot table: {e}")
+# -------------------------------------------------------------------
