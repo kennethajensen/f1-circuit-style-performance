@@ -10,6 +10,7 @@ import altair as alt
 st.title("🏎️ Analyzing Formula 1 Data")
 # Add a welcome message
 st.write("Showing the relative performance difference during the the 2023-2025 seasons on each group of circuit styles. The performance is based on the fastest qualifying lap from each driver and includes qualifying for both the sprint and feature races.")
+st.write("Read more about how the circuits were given their individual profiles and how they were grouped together by reading my article at https://medium.com/@kenneth.agregaard.jensen/analyzing-formula-1-data-part-3-6b6ebc8a7714?source=friends_link&sk=a1de6ee24e09dcbf603f7ea182f89d47")
 
 # Use @st.cache_data to keep the app fast on the cloud
 @st.cache_data
