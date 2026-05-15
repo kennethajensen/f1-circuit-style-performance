@@ -48,7 +48,7 @@ else:
 # Filter your data based on the selection
 filtered_df = df[df['Cluster Name'] == selected_circuit_cluster]
 
-st.subheader(f"Performance on {selected_circuit_cluster}")
+#st.subheader(f"Performance on {selected_circuit_cluster}")
 
 # Group by your category and calculate the mean
 chart_data = filtered_df.groupby('Team Name')['Adjusted Lap Time Ratio'].mean().reset_index()
@@ -57,7 +57,7 @@ chart_data = filtered_df.groupby('Team Name')['Adjusted Lap Time Ratio'].mean().
 chart = alt.Chart(chart_data).mark_bar().encode(
     x=alt.X('Adjusted Lap Time Ratio:Q', 
             axis=alt.Axis(format='.1%'), 
-            title=f'{selected_circuit_cluster} | Performance Difference (%)'),
+            title=f'Performance Difference (%) on {selected_circuit_cluster}'),
     y=alt.Y('Team Name', sort='x', title=None),
     # Conditional coloring logic:
     color=alt.condition(
