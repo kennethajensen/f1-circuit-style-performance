@@ -75,7 +75,11 @@ st.altair_chart(chart, use_container_width=True)
 
 # Optional: Display the raw averages in a table for clarity
 if st.checkbox("Show raw average numbers"):
-    st.table(chart_data)
+    # Format the 'Adjusted Lap Time Ratio' column as a percentage
+    formatted_data = chart_data.style.format({
+        'Adjusted Lap Time Ratio': '{:.2%}'
+    })
+    st.table(formatted_data)
 # -------------------------------------------------------------------
 
 
@@ -109,10 +113,11 @@ heatmap = alt.Chart(heatmap_data).mark_rect().encode(
 st.altair_chart(heatmap, use_container_width=True)
 
 # Optional: Display the heatmap data in a pivot table for clarity
-if st.checkbox("Show heatmap data as pivot table"):
-    try:
-        pivot_data = heatmap_data.pivot_table(index='Team Name', columns='Cluster Name', values='Adjusted Lap Time Ratio', aggfunc='mean')
-        st.dataframe(pivot_data)
-    except Exception as e:
-        st.error(f"Error creating pivot table: {e}")
+try:
+    pivot_data = heatmap_data.pivot_table(index='Team Name', columns='Cluster Name', values='Adjusted Lap Time Ratio', aggfunc='mean')
+    # Apply percentage formatting
+    formatted_pivot = pivot_data.style.format("{:.2%}")
+    st.dataframe(formatted_pivot)
+except Exception as e:
+    st.error(f"Error creating pivot table: {e}")
 # -------------------------------------------------------------------
