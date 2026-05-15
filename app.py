@@ -36,13 +36,10 @@ selected_circuit_cluster = st.selectbox("Select a circuit style to analyze:", cl
 # Use the name of the selected circuit cluster to create the name of
 # image file that shows the circuits included in the cluster
 circuit_file_name = f"images/{selected_circuit_cluster}.PNG"
-
 if os.path.exists(circuit_file_name):
-    st.image(circuit_file_name)
+    st.image(circuit_file_name, use_container_width=True)
 else:
     st.info(f"No track layout image available for {selected_circuit_cluster}")
-st.image(circuit_file_name, use_container_width=True)
-
 
 # 3. Filter your data based on the selection
 filtered_df = df[df['Cluster Name'] == selected_circuit_cluster]
