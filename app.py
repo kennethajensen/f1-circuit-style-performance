@@ -73,7 +73,7 @@ chart = alt.Chart(chart_data).mark_bar().encode(
 # Display the chart
 st.altair_chart(chart, use_container_width=True)
 
-st.write("Negative values shown as blue bars indicate that the team is quicker in qualifying on this style of circuit compared to their average performance across all of the circuits, while positive values are used for teams that are slower on this circuit style."
+st.write("Negative values shown as blue bars indicate that the team is quicker in qualifying on this style of circuit compared to their average performance across all of the circuits, while positive values are used for teams that are slower on this circuit style.")
 
 # Optional: Display the raw averages in a table for clarity
 if st.checkbox("Show raw average numbers"):
@@ -116,10 +116,18 @@ st.altair_chart(heatmap, use_container_width=True)
 
 # Optional: Display the heatmap data in a pivot table for clarity
 try:
-    pivot_data = heatmap_data.pivot_table(index='Team Name', columns='Cluster Name', values='Adjusted Lap Time Ratio', aggfunc='mean')
-    # Apply percentage formatting
+    # 1. Create the pivot table
+    pivot_data = heatmap_data.pivot_table(
+        index='Team Name', 
+        columns='Cluster Name', 
+        values='Adjusted Lap Time Ratio', 
+        aggfunc='mean'
+    )
+    # 2. Format as percentage
     formatted_pivot = pivot_data.style.format("{:.2%}")
+    # 3. Display
     st.dataframe(formatted_pivot)
+
 except Exception as e:
     st.error(f"Error creating pivot table: {e}")
 # -------------------------------------------------------------------
