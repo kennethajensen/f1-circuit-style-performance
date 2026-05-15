@@ -9,8 +9,7 @@ import altair as alt
 # Set the page title
 st.title("🏎️ Analyzing Formula 1 Data")
 # Add a welcome message
-st.write("Showing the relative performance difference during the the 2023-2025 seasons on each group of circuit styles.")
-st.write("The performance is based on fastest qualifying lap from each driver and includes both qualifying for both sprint and feature races.")  
+st.write("Showing the relative performance difference during the the 2023-2025 seasons on each group of circuit styles. The performance is based on the fastest qualifying lap from each driver and includes qualifying for both the sprint and feature races.")
 
 # Use @st.cache_data to keep the app fast on the cloud
 @st.cache_data
