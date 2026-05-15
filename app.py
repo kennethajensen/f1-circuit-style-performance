@@ -73,6 +73,10 @@ chart = alt.Chart(chart_data).mark_bar().encode(
 # Display the chart
 st.altair_chart(chart, use_container_width=True)
 
+st.write("Negative values shown as blue bars indicate that the team is quicker in qualifying on this style of circuit 
+compared to their average performance across all of the circuits, while positive values are used for teams that are slower
+in this circuit style."
+
 # Optional: Display the raw averages in a table for clarity
 if st.checkbox("Show raw average numbers"):
     # Format the 'Adjusted Lap Time Ratio' column as a percentage
