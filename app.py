@@ -1,4 +1,4 @@
-# https://my-first-app-app-vernumh2n2kpyeyhwgvkxg.streamlit.app/
+# https://f1-circuit-style-performance.streamlit.app/
 
 import os
 import streamlit as st
